@@ -1,0 +1,35 @@
+1.	Create the empty file: sudo touch /usr/share/polkit-1/actions/com.ubuntu.pkexec.xampp.policy
+2.	Edit the file: sudo xed /usr/share/polkit-1/actions/com.ubuntu.pkexec.xampp.policy and copy and paste the following xml into it
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN" "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+    <vendor>Apache Friends</vendor>
+    <vendor_url>https://www.apachefriends.org/index.html</vendor_url>
+	<icon_name>xampp</icon_name>
+
+	<action id="com.ubuntu.pkexec.xampp.policy">
+        <description>Run XAMPP Control Panel</description>
+		<message>Authentication is required to run the XAMP Control Panel</message>
+		<defaults>
+			<allow_any>auth_admin</allow_any>
+			<allow_inactive>auth_admin</allow_inactive>
+			<allow_active>auth_admin</allow_active>
+		</defaults>
+		<annotate key="org.freedesktop.policykit.exec.path">/opt/lampp/manager-linux-x64.run</annotate>
+		<annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+	</action>
+</policyconfig>
+
+3.	Save the file and exit xed.
+4.	Create a png image of the favicon file in /opt/lampp/htdocs
+5.	To open the Menu Editor in Linux Mint: right click on the Menu button. Click on Configure. Click on Menu. Click on Open the Menu Editor.
+6.	In the left panel, click on Internet then click on New Item
+7.	Enter the following in the dialogue:
+		Name: XAMPP
+		Command: pkexec /opt/lampp/manager-linux-x64.run
+		Click on the icon and select the favicon.png you created earlier
+8.	Save and exit the Menu Editor.
+9.	In the Menu right click the newly created XAMPP icon and click on + Add to panel
+
+You should now be able to launch XAMPP from the menu and the quick launch bar. As a bonus entering pkexec /opt/lampp/manager-linux-x64.run into terminal will also start the XAMPP Control Panel.
